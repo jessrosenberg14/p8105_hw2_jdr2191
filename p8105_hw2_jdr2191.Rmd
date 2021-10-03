@@ -8,15 +8,16 @@ output: github_document
 ## Problem 1
 
 Load the tidyverse and readxl
-```{r, echo=FALSE, message=FALSE}
+```{r loadlibraries, echo=FALSE, message=FALSE}
 library(tidyverse)
 library(readxl)
 ```
 
 Import excel file
 ```{r import_mrtrashwheel}
-mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx", sheet = "Mr. Trash Wheel")
+mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx", sheet = "Mr. Trash Wheel",
+                             startCol = 1, endCol = 14)
 
-mrtrashwheel_df
+view(mrtrashwheel_df)
 ```
 
