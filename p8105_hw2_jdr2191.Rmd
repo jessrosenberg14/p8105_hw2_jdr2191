@@ -16,8 +16,9 @@ library(readxl)
 Import excel file
 ```{r import_mrtrashwheel}
 mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx", sheet = "Mr. Trash Wheel",
-                             startCol = 1, endCol = 14)
+                             range = cell_cols("A:N")) %>%
+                  janitor::clean_names() %>%
+                  filter(dumpster != "NA")
 
-view(mrtrashwheel_df)
 ```
 
