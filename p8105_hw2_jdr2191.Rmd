@@ -51,3 +51,5 @@ precipitation_df = bind_rows(precipitation18_df, precipitation19_df) %>%
 view(precipitation_df)
 ```
 
+The Mr. Trash Wheel dataset contains `r count(mrtrashwheel_df)` observations. 
+The precipitation dataset contains `r count(precipitation_df)` observations. In 2018, the total precipitation was `r sum(subset(precipitation_df, year == 2018)$total)` inches.
