@@ -22,6 +22,15 @@ mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx", sheet 
                   mutate(sports_balls = round(sports_balls, 0))
 
 view(mrtrashwheel_df)
+```
 
+Read and clean the precipitation data for 2018 and 2019.
+```{r precipitationdata_18}
+precipitation18_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",sheet = "2018 Precipitation",
+                     range = "A2:B14") %>%
+                     janitor::clean_names() %>%
+                     mutate(year = "2018")
+
+view(precipitation18_df)
 ```
 
