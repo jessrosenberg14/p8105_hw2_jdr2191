@@ -34,9 +34,10 @@ precipitation18_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",shee
 view(precipitation18_df)
 
 precipitation19_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",sheet = "2019 Precipitation",
-                     range = "A2:B8") %>%
+                     range = "A2:B14") %>%
                      janitor::clean_names() %>%
-                     mutate(year = "2019")
+                     na.omit %>%
+                     mutate(year = "2019") 
 
 view(precipitation19_df)
 ```
@@ -45,7 +46,7 @@ Combine preciptation datasets for 2018 and 2019.
 ```{r combined_precipitation}
 precipitation_df = bind_rows(precipitation18_df, precipitation19_df) %>%
                    janitor::clean_names() %>%
-                   mutate(month = month.name)
+                   mutate(month = month.name[as.numeric(month)])
 
 view(precipitation_df)
 ```
