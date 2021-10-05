@@ -75,7 +75,8 @@ Import and clean the data in snp.csv.
 snp_df = read_csv("snp.csv") %>%
          janitor::clean_names() %>%
          separate(date, sep = "/", into = c("month","day","year"), convert = TRUE) %>%
-         mutate(year = ifelse(year >= 50, year + 1900, year + 2000))
+         mutate(year = ifelse(year >= 50, year + 1900, year + 2000)) %>%
+         relocate(year, before = NULL)
 
 view(snp_df)
 ```
