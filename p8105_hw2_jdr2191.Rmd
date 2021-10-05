@@ -63,7 +63,8 @@ Import the data in pols-month.csv.
 ```{r import_pols-month}
 pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
-                separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) 
+                separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) %>%
+                mutate(month = month.name[as.numeric(month)])
  
 view(pols_month_df)
 
