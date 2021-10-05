@@ -57,7 +57,7 @@ The precipitation dataset contains `r count(precipitation_df)` observations. In 
 
 ## Problem 2
 
-Import the data in pols-month.csv.
+Import and clean the data in pols-month.csv.
 ```{r import_pols-month}
 pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
@@ -68,5 +68,15 @@ pols_month_df = read_csv("pols-month.csv") %>%
 
 
 view(pols_month_df)
+```
+
+Import and clean the data in snp.csv.
+```{r import_snp}
+snp_df = read_csv("snp.csv") %>%
+         janitor::clean_names() %>%
+         separate(date, sep = "/", into = c("month","day","year"), convert = TRUE) %>%
+         mutate(year = ifelse(year >= 50, year + 1900, year + 2000))
+
+view(snp_df)
 ```
 
