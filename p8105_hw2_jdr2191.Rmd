@@ -65,7 +65,8 @@ pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
                 separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) %>%
                 mutate(month = month.name[as.numeric(month)]) %>%
-                mutate(president = factor(prez_dem, labels = c("gop","dem")))
+                mutate(president = factor(prez_dem, labels = c("gop","dem"))) %>%
+                subset(select = -c(prez_dem, prez_gop, day))
 
 
 view(pols_month_df)
