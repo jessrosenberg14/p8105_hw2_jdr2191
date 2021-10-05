@@ -56,3 +56,19 @@ The Mr. Trash Wheel dataset contains `r count(mrtrashwheel_df)` observations. In
 The precipitation dataset contains `r count(precipitation_df)` observations. In 2018, the total precipitation was `r sum(subset(precipitation_df, year == 2018)$total)` inches.
 
 Add key variables later. 
+
+## Problem 2
+
+Import the data in pols-month.csv.
+```{r import_pols-month}
+pols_month_df = read_csv("pols-month.csv") %>%
+                janitor::clean_names() %>%
+                separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) 
+ 
+view(pols_month_df)
+
+typeof(pull(pols_month_df, year))
+typeof(pull(pols_month_df, month))
+typeof(pull(pols_month_df, day))
+```
+
