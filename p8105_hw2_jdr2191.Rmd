@@ -67,15 +67,6 @@ pols_month_df = read_csv("pols-month.csv") %>%
                 mutate(month = month.name[as.numeric(month)]) %>%
                 mutate(president = factor(prez_dem, labels = c("gop","dem")))
 
-%>%
-                if_else(1, "dem", "gop")
-
-                if_else(president = 1, "dem", "gop")
-
-
-                mutate(prez_dem, president = if_else(1, "dem", "gop"), convert = TRUE)
-
-typeof(pull(pols_month_df, president))
 
 view(pols_month_df)
 ```
