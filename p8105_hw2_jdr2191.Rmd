@@ -64,12 +64,19 @@ Import the data in pols-month.csv.
 pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
                 separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) %>%
-                mutate(month = month.name[as.numeric(month)])
- 
-view(pols_month_df)
+                mutate(month = month.name[as.numeric(month)]) %>%
+                mutate(president = factor(prez_dem, labels = c("gop","dem")))
 
-typeof(pull(pols_month_df, year))
-typeof(pull(pols_month_df, month))
-typeof(pull(pols_month_df, day))
+%>%
+                if_else(1, "dem", "gop")
+
+                if_else(president = 1, "dem", "gop")
+
+
+                mutate(prez_dem, president = if_else(1, "dem", "gop"), convert = TRUE)
+
+typeof(pull(pols_month_df, president))
+
+view(pols_month_df)
 ```
 
