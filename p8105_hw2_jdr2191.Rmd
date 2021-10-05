@@ -51,9 +51,9 @@ precipitation_df = bind_rows(precipitation18_df, precipitation19_df) %>%
 view(precipitation_df)
 ```
 
-The Mr. Trash Wheel dataset contains `r count(mrtrashwheel_df)` observations. In 2019, the median number of sports balls in a dumpster was  `r median(subset(mrtrashwheel_df, year == 2019)$sports_balls)` balls.
+The Mr. Trash Wheel dataset contains `r count(mrtrashwheel_df)` observations. In 2019, the median number of sports balls in a dumpster was  `r mrtrashwheel_df %>% filter(year == 2019) %>% summarise(median(sports_balls))` balls.
 
-The precipitation dataset contains `r count(precipitation_df)` observations. In 2018, the total precipitation was `r sum(subset(precipitation_df, year == 2018)$total)` inches.
+The precipitation dataset contains `r count(precipitation_df)` observations. In 2018, the total precipitation was `r precipitation_df %>% filter(year == 2018) %>% summarise(sum(total))` inches.
 
 Add key variables later. 
 
