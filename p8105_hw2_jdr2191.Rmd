@@ -81,3 +81,25 @@ snp_df = read_csv("snp.csv") %>%
 view(snp_df)
 ```
 
+Import and Clean the Unemployment Data.
+```{r import_unemployment}
+unemployment_df = read_csv("unemployment.csv") %>%
+                  janitor::clean_names()
+```
+
+```{r tidy_unemployment}
+unemployment_tidy = 
+             unemployment_df %>%
+             pivot_longer(jan:dec,
+                          names_to = "month",
+                          values_to = "unemployment")
+                               
+
+view(unemployment_tidy)
+
+as.numeric(pull(unemployment_df, jan:dec))
+
+typeof(pull(unemployment_df, jan))
+```
+
+
