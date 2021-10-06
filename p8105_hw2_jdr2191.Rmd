@@ -164,10 +164,19 @@ view(olivia_df)
 
 Produce a similar table showing the most popular name among male children over time.
 ```{r popular_male_name}
-male_name = 
-  filter(baby_names_df, gender == "male", rank == min(rank), count == max(count))
+male_name_df = 
+  filter(baby_names_df, gender == "male" & rank == 1)
+  
+male_name_df %>%
+  subset(select = -c(gender, count, rank)) %>%
+  pivot_wider(
+    names_from = "year_of_birth",
+    values_from = "childs_first_name"
+  ) %>%
+  knitr::kable(caption = "The most popular name among male children over time")
 
-view(male_name)
+view(male_name_df)
+
 ```
 
 Produce a scatterplot showing the number of children with a name against the rank in popularity of that name for male, white non-hispanic children born in 2016.
@@ -179,6 +188,6 @@ male_wnh_2016_df =
 male_wnh_2016_df %>%
   ggplot(aes(x = rank, y = count)) + geom_point()
 
-view(male_wnh_2016)
+view(male_wnh_2016_df)
 ```
 
