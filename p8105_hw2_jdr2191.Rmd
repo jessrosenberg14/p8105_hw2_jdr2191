@@ -129,3 +129,28 @@ The unemployment (tidied) dataset contained year and month of the observation as
 
 We merged the pols_month dataset, the snp dataset and the unemployment (tidied) dataset to produce a resulting dataset entitled snp_pols_unemployment. This resulting dataset has `r ncol(snp_pols_unemployment_df)` columns and `r nrow(snp_pols_unemployment_df)` rows. In total, this dataset contains `r count(snp_pols_unemployment_df)` observations. This combined dataset has dates ranging from `r min(pull(snp_pols_unemployment_df, year))` to `r max(pull(snp_pols_unemployment_df, year))`. Some key variables in this dataset include `month` and `year` of the observation, `president`, indicating whether the President was a Democrat or a Republican on the associated date, `close`, indicating the closing values of the S&P stock index on the associated date, and `unemployment`, indicating the percent of unemployment on the associated date.
 
+## Problem 3
+
+```{r import_tidy_babynames}
+baby_names_df = read_csv("Popular_Baby_Names.csv") %>%
+                janitor::clean_names() %>%
+                mutate(ethnicity2 = ifelse(grepl("ASIAN AND PACI", ethnicity), "ASIAN AND PACIFIC ISLANDER",
+                                          ifelse(grepl("BLACK NON HISP", ethnicity), "BLACK NON HISPANIC",
+                                                 ifelse(grepl("WHITE NON HISP", ethnicity), "WHITE NON HISPANIC",
+                                                              "HISPANIC"))))
+                                          
+                                          
+                  \ethnicity = c("ASIAN AND PACI"),c("ASIAN AND PACIFIC ISLANDER" )))       
+                       
+                str_replace(ethnicity, "ASIAN AND PACI", "ASIAN AND PACIFIC ISLANDER")
+     replace(ethnicity, "ASIAN AND PACI", "ASIAN AND PACIFIC ISLANDER")
+
+view(baby_names_df)
+
+typeof(baby_names_df, ethnicity)
+
+unique(pull(baby_names_df, ethnicity2))
+unique(pull(baby_names_df, ethnicity))
+unique(pull(baby_names_df, gender))
+```
+
