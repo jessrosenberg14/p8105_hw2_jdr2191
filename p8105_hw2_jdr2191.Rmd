@@ -178,14 +178,6 @@ male_wnh_2016_df =
 
 male_wnh_2016_df %>%
   ggplot(aes(x = rank, y = count)) + geom_point()
-  
-
-male_wnh_2016 %>%
-  subset(select = -c(year_of_birth, ethnicity, gender)) %>%
-  pivot_wider(
-    names_from = "childs_first_name",
-    values_from = "count"
-  )
 
 view(male_wnh_2016)
 ```
