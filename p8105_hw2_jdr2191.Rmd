@@ -134,23 +134,21 @@ We merged the pols_month dataset, the snp dataset and the unemployment (tidied) 
 ```{r import_tidy_babynames}
 baby_names_df = read_csv("Popular_Baby_Names.csv") %>%
                 janitor::clean_names() %>%
-                mutate(ethnicity2 = ifelse(grepl("ASIAN AND PACI", ethnicity), "ASIAN AND PACIFIC ISLANDER",
+                mutate(gender = str_to_lower(gender)) %>%
+                mutate(ethnicity = ifelse(grepl("ASIAN AND PACI", ethnicity), "ASIAN AND PACIFIC ISLANDER",
                                           ifelse(grepl("BLACK NON HISP", ethnicity), "BLACK NON HISPANIC",
                                                  ifelse(grepl("WHITE NON HISP", ethnicity), "WHITE NON HISPANIC",
-                                                              "HISPANIC"))))
+                                                              "HISPANIC")))) %>%
+                mutate(ethnicity = str_to_lower(ethnicity)) %>%
+                distinct()
                                           
-                                          
-                  \ethnicity = c("ASIAN AND PACI"),c("ASIAN AND PACIFIC ISLANDER" )))       
-                       
-                str_replace(ethnicity, "ASIAN AND PACI", "ASIAN AND PACIFIC ISLANDER")
-     replace(ethnicity, "ASIAN AND PACI", "ASIAN AND PACIFIC ISLANDER")
-
 view(baby_names_df)
 
-typeof(baby_names_df, ethnicity)
-
-unique(pull(baby_names_df, ethnicity2))
 unique(pull(baby_names_df, ethnicity))
 unique(pull(baby_names_df, gender))
+
+count(subset(pull(baby_names_df, ethnicity = "ASIAN AND PACIFIC ISLANDER")))
+
+table(pull(baby_names_df, ethnicity))
 ```
 
