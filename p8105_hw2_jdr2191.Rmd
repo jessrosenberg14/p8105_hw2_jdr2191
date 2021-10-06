@@ -76,7 +76,9 @@ snp_df = read_csv("snp.csv") %>%
          janitor::clean_names() %>%
          separate(date, sep = "/", into = c("month","day","year"), convert = TRUE) %>%
          mutate(year = ifelse(year >= 50, year + 1900, year + 2000)) %>%
-         relocate(year, before = NULL)
+         mutate(month = month.name[as.numeric(month)]) %>%
+         subset(select = -c(day)) %>%
+         relocate(year, before = NULL) 
 
 view(snp_df)
 ```
@@ -89,16 +91,34 @@ view(unemployment_df)
 ```
 
 ```{r tidy_unemployment}
-unemployment_tidy = 
+unemployment_tidy_df = 
              unemployment_df %>%
              pivot_longer(Jan:Dec,
                           names_to = "month",
                           values_to = "unemployment") %>%
             mutate(month = match(month, month.abb)) %>%
-            mutate(month = month.name[as.numeric(month)])
+            mutate(month = month.name[as.numeric(month)]) %>%
+            janitor::clean_names()
 
-view(unemployment_tidy)
+view(unemployment_tidy_df)
 
+```
+
+Merge snp into pols.
+```{r merge_snp_pols}
+snp_pols_df =
+  left_join(pols_month_df, snp_df, by = c("month","year"))
+
+view(snp_pols_df)
+```
+
+Merge unemployment_tidy_df into snp_pols_df
+```{r merge_unemployment_snp_pols}
+snp_pols_unemployment_df =
+  left_join(snp_pols_df, unemployment_tidy_df, by = c("month","year"))
+
+view(unemployment_tidy_df)
+view(snp_pols_unemployment_df)
 ```
 
 
