@@ -58,7 +58,7 @@ The precipitation dataset contains `r count(precipitation_df)` observations. In 
 ## Problem 2
 
 Import and clean the dataset containing information about national politicians who are democratic or republican at any given time.
-```{r import_pols-month}
+```{r import_pols-month, message=FALSE}
 pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
                 separate(mon, sep = "-", into = c("year","month","day"), convert = TRUE) %>%
@@ -71,7 +71,7 @@ view(pols_month_df)
 ```
 
 Import and clean the Standard & Poor’s stock market index dataset.
-```{r import_snp}
+```{r import_snp, message=FALSE}
 snp_df = read_csv("snp.csv") %>%
          janitor::clean_names() %>%
          separate(date, sep = "/", into = c("month","day","year"), convert = TRUE) %>%
@@ -84,7 +84,7 @@ view(snp_df)
 ```
 
 Import and Clean the Unemployment Data.
-```{r import_tidy_unemployment}
+```{r import_tidy_unemployment, message=FALSE}
 unemployment_tidy_df = read_csv("unemployment.csv") %>%
              pivot_longer(Jan:Dec,
                           names_to = "month",
