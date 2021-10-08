@@ -19,7 +19,7 @@ mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx", shee
                              range = cell_cols("A:N")) %>%
                   mutate(Month = str_replace(Month, "Decemeber","December")) %>%
                   janitor::clean_names() %>%
-                  filter(dumpster != "NA") %>%
+                  filter(!(str_detect(month, "Total"))) %>%
                   mutate(sports_balls = round(sports_balls, 0))
 
 view(mrtrashwheel_df)
@@ -27,17 +27,16 @@ view(mrtrashwheel_df)
 
 Read and clean the precipitation data for 2018 and 2019.
 ```{r precipitationdata_18}
-precipitation18_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",sheet = "2018 Precipitation",
+precipitation18_df = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx",sheet = "2018 Precipitation",
                      range = "A2:B14") %>%
                      janitor::clean_names() %>%
                      mutate(year = "2018")
 
 view(precipitation18_df)
 
-precipitation19_df = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",sheet = "2019 Precipitation",
+precipitation19_df = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx",sheet = "2019 Precipitation",
                      range = "A2:B14") %>%
                      janitor::clean_names() %>%
-                     na.omit %>%
                      mutate(year = "2019") 
 
 view(precipitation19_df)
