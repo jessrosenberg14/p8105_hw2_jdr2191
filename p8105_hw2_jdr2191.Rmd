@@ -13,11 +13,11 @@ library(tidyverse)
 library(readxl)
 ```
 
-Import excel file
+Import the Mr. Trash Wheel excel file.
 ```{r import_mrtrashwheel}
 mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx", sheet = "Mr. Trash Wheel",
                              range = cell_cols("A:N")) %>%
-                  mutate(str_replace(Month, "Decemeber","December") %>%
+                  mutate(str_replace(Month, "Decemeber","December")) %>%
                   janitor::clean_names() %>%
                   filter(dumpster != "NA") %>%
                   mutate(sports_balls = round(sports_balls, 0))
@@ -58,7 +58,7 @@ The precipitation dataset contains `r count(precipitation_df)` observations. In 
 
 ## Problem 2
 
-Import and clean the data in pols-month.csv.
+Import and clean the dataset containing information about national politicians who are democratic or republican at any given time.
 ```{r import_pols-month}
 pols_month_df = read_csv("pols-month.csv") %>%
                 janitor::clean_names() %>%
@@ -71,7 +71,7 @@ pols_month_df = read_csv("pols-month.csv") %>%
 view(pols_month_df)
 ```
 
-Import and clean the data in snp.csv.
+Import and clean the Standard & Poor’s stock market index dataset.
 ```{r import_snp}
 snp_df = read_csv("snp.csv") %>%
          janitor::clean_names() %>%
@@ -122,15 +122,17 @@ view(unemployment_tidy_df)
 view(snp_pols_unemployment_df)
 ```
 
-The pols_month dataset contains year and month of the count, a variable indicating whether the President was a Democrat or a Republican on the associated date, variables indicating the number of Republican and Democratic Governors on the associated date, variables indicating the number of Republican and Democratic Senators on the associated date, and variables indicating the number of Republican and Democratic Representatives on the associated date.The dates in this dataset ranged from `r min(pull(pols_month_df, year))` to `r max(pull(pols_month_df, year))`. 
+The pols_month dataset contains year and month of the count, a variable indicating whether the President was a Democrat or a Republican on the associated date, variables indicating the number of Republican and Democratic Governors on the associated date, variables indicating the number of Republican and Democratic Senators on the associated date, and variables indicating the number of Republican and Democratic Representatives on the associated date. The dates in this dataset ranged from `r min(pull(pols_month_df, year))` to `r max(pull(pols_month_df, year))`. 
 
 The snp dataset contained the year and month of the observation as well as a variabel indicating the closing values of the S&P stock index on the associated date. The dates in this dataset ranged from `r min(pull(snp_df, year))` to `r max(pull(snp_df, year))`.
 
 The unemployment (tidied) dataset contained year and month of the observation as well as the percent of unemployment on the associated date. The dates in this dataset ranged from `r min(pull(unemployment_tidy_df, year))` to `r max(pull(unemployment_tidy_df, year))`.
 
-We merged the pols_month dataset, the snp dataset and the unemployment (tidied) dataset to produce a resulting dataset entitled snp_pols_unemployment. This resulting dataset has `r ncol(snp_pols_unemployment_df)` columns and `r nrow(snp_pols_unemployment_df)` rows. In total, this dataset contains `r count(snp_pols_unemployment_df)` observations. This combined dataset has dates ranging from `r min(pull(snp_pols_unemployment_df, year))` to `r max(pull(snp_pols_unemployment_df, year))`. Some key variables in this dataset include `month` and `year` of the observation, `president`, indicating whether the President was a Democrat or a Republican on the associated date, `close`, indicating the closing values of the S&P stock index on the associated date, and `unemployment`, indicating the percent of unemployment on the associated date.
+We merged the pols_month dataset, the snp dataset and the unemployment (tidied) dataset to produce a resulting dataset entitled snp_pols_unemployment. This resulting dataset has `r ncol(snp_pols_unemployment_df)` columns and `r nrow(snp_pols_unemployment_df)` rows. In total, this dataset contains `r count(snp_pols_unemployment_df)` observations. This combined dataset has dates ranging from `r min(pull(snp_pols_unemployment_df, year))` to `r max(pull(snp_pols_unemployment_df, year))`. Some key variables in this dataset include `month` and `year` of the observation, `president`, which indicates whether the President was a Democrat or a Republican on the associated date, `close`, which indicates the closing values of the S&P stock index on the associated date, and `unemployment`, which indicates the percent of unemployment on the associated date.
 
 ## Problem 3
+
+Import and clean the NYC Open dataset on the popularity of baby names.
 
 ```{r import_tidy_babynames}
 baby_names_df = read_csv("Popular_Baby_Names.csv") %>%
@@ -147,7 +149,8 @@ baby_names_df = read_csv("Popular_Baby_Names.csv") %>%
 view(baby_names_df)
 ```
 
-Produce a table showing the rank in popularity of teh name "Olivia" as a female baby name over time
+Produce a table showing the rank in popularity of teh name "Olivia" as a female baby name over time.
+
 ```{r female_olivia}
 olivia_df =
   filter(baby_names_df, childs_first_name == "olivia", gender == "female")
@@ -158,12 +161,13 @@ olivia_df %>%
     names_from = "year_of_birth",
     values_from = "rank"
   ) %>%
-  knitr::kable(caption = "The rank in popularity of the name Olivia as a female baby name over time")
+  knitr::kable()
 
 view(olivia_df)
 ```
 
 Produce a similar table showing the most popular name among male children over time.
+
 ```{r popular_male_name}
 male_name_df = 
   filter(baby_names_df, gender == "male" & rank == 1)
@@ -174,7 +178,7 @@ male_name_df %>%
     names_from = "year_of_birth",
     values_from = "childs_first_name"
   ) %>%
-  knitr::kable(caption = "The most popular name among male children over time")
+  knitr::kable()
 
 view(male_name_df)
 
