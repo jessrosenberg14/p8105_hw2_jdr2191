@@ -17,7 +17,7 @@ Import the Mr. Trash Wheel excel file.
 ```{r import_mrtrashwheel}
 mrtrashwheel_df = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx", sheet = "Mr. Trash Wheel",
                              range = cell_cols("A:N")) %>%
-                  mutate(str_replace(Month, "Decemeber","December")) %>%
+                  mutate(Month = str_replace(Month, "Decemeber","December")) %>%
                   janitor::clean_names() %>%
                   filter(dumpster != "NA") %>%
                   mutate(sports_balls = round(sports_balls, 0))
