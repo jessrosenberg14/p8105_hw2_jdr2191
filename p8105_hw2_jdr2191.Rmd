@@ -118,7 +118,7 @@ We merged the pols_month dataset, the snp dataset and the unemployment (tidied) 
 
 Import and clean the NYC Open dataset on the popularity of baby names.
 
-```{r import_tidy_babynames}
+```{r import_tidy_babynames, message=FALSE}
 baby_names_df = read_csv("Popular_Baby_Names.csv") %>%
                 janitor::clean_names() %>%
                 mutate(gender = str_to_lower(gender)) %>%
