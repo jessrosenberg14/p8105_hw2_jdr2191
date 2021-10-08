@@ -161,18 +161,16 @@ male_name_df =
   )
 
 knitr::kable(male_name_df)
-
 ```
 
 Produce a scatterplot showing the number of children with a name against the rank in popularity of that name for male, white non-hispanic children born in 2016.
 ```{r scatterplot}
 male_wnh_2016_df = 
   filter(baby_names_df, gender == "male", year_of_birth == "2016", ethnicity == "white non hispanic") %>%
-  subset(select = -c(year_of_birth, ethnicity, gender))
+  subset(select = -c(year_of_birth, ethnicity, gender)) 
 
 male_wnh_2016_df %>%
-  ggplot(aes(x = rank, y = count)) + geom_point()
-
-view(male_wnh_2016_df)
+  ggplot(aes(x = rank, y = count)) + geom_point() + ggtitle("Number of Children with a Name vs. Rank in Popularity of That Name 
+for White Non-Hispanic Children Born in 2016") + theme(plot.title = element_text(size = 12, hjust = 0.5))
 ```
 
